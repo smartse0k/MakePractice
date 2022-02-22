@@ -112,3 +112,37 @@ g++ -o ./bin/calc.out ./obj/calculator.o ./obj/adder-module.o ./obj/subtractor-m
 ```
 
 ## Step 5 : 깔끔하게 정리해보기
+
+### Compile과 Build 나누기
+
+Makefile 변경
+
+```make
+build: compile_main
+	g++ -o ./bin/calc.out ./obj/calculator.o ./obj/adder-module.o ./obj/subtractor-module.o ./obj/multiplier-module.o ./obj/divider-module.o ./obj/main.o
+
+compile_main: compile_calculator compile_module
+	g++ -c -o ./obj/main.o ./src/main.cc
+
+compile_calculator:
+	g++ -c -o ./obj/calculator.o ./src/calculator.cc
+
+compile_module:
+	g++ -c -o ./obj/adder-module.o ./src/adder-module.cc
+	g++ -c -o ./obj/subtractor-module.o ./src/subtractor-module.cc
+	g++ -c -o ./obj/multiplier-module.o ./src/multiplier-module.cc
+	g++ -c -o ./obj/divider-module.o ./src/divider-module.cc
+
+```
+
+`make` 또는 `make build` 실행하였을때 출력은 위와 동일.
+
+> 1. `build`는 `compile_main`에 의존하고 있으므로 `compile_main`가 먼저 수행
+> 2. `compile_main`는 `compile_calculator`와 `compile_module`에 의존하므로 각 항목을 먼저 수행
+> 3. 따라서 `build`를 하기 위해서는 `compile_calculator`, `compile_module`, `compile_main`, `build` 순서대로 수행된다.
+
+-----
+
+이외에 Make의 Rule이나 Macro 등이 있지만 이것들은 나중에 해보기로...
+
+끝.
