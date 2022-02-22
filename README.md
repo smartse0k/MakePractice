@@ -47,7 +47,7 @@ g++ -o ./bin/calc.out ./obj/calculator.o \
 
 실행결과
 
-```bash
+```
 The program is starting.
 Calculator and modules are loaded.
 Modules are attached to calculator.
@@ -70,6 +70,45 @@ COMMAND: add|sub|mul|div|exit
 
 ## Step 3 : Makefile 작성해보기
 
+Makefile의 양식
+
+```
+target:   dependencies ...
+          commands
+          ...
+```
+
+Makefile 작성 (들여쓰기는 Space가 아닌 Tab 문자여야 함.)
+
+```
+build:
+	g++ -c -o ./obj/calculator.o ./src/calculator.cc
+	g++ -c -o ./obj/adder-module.o ./src/adder-module.cc
+	g++ -c -o ./obj/subtractor-module.o ./src/subtractor-module.cc
+	g++ -c -o ./obj/multiplier-module.o ./src/multiplier-module.cc
+	g++ -c -o ./obj/divider-module.o ./src/divider-module.cc
+	g++ -c -o ./obj/main.o ./src/main.cc
+	g++ -o ./bin/calc.out ./obj/calculator.o ./obj/adder-module.o ./obj/subtractor-module.o ./obj/multiplier-module.o ./obj/divider-module.o ./obj/main.o
+```
+
 ## Step 4 : make로 빌드(컴파일 및 링크) 해보기
+
+make 명령어 입력
+
+> 터미널에 `make` 또는 `make build` 입력.
+> * `make` : Makefile에서 첫 번째 target(=build)이 수행된다.
+> * `make build` : 위 Makefile에서 target이 build이므로 build에 해당하는 명령이 수행된다.
+
+출력
+
+```
+g++ -c -o ./obj/calculator.o ./src/calculator.cc
+g++ -c -o ./obj/adder-module.o ./src/adder-module.cc
+g++ -c -o ./obj/subtractor-module.o ./src/subtractor-module.cc
+g++ -c -o ./obj/multiplier-module.o ./src/multiplier-module.cc
+g++ -c -o ./obj/divider-module.o ./src/divider-module.cc
+g++ -c -o ./obj/main.o ./src/main.cc
+g++ -o ./bin/calc.out ./obj/calculator.o ./obj/adder-module.o ./obj/subtractor-module.o ./obj/multiplier-module.o ./obj/divider-module.o ./obj/main.o
+```
 
 ## Step 5 : 깔끔하게 정리해보기
